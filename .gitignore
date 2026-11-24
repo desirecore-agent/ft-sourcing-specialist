@@ -1,0 +1,4 @@
+workspace/
+trade-data/
+.env
+.DS_Store

@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Trade campaign",
+  "description": "Private campaign intent and shared query budget; not an authorization token.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "mode",
+    "target",
+    "budget"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable campaign identity",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "description": "Simulation must never count as commercial acquisition",
+      "enum": [
+        "simulation",
+        "research",
+        "live"
+      ]
+    },
+    "target": {
+      "type": "object",
+      "description": "Product, country and customer role",
+      "required": [
+        "product",
+        "country",
+        "role"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "product": {
+          "type": "string",
+          "description": "Product keywords",
+          "minLength": 1
+        },
+        "country": {
+          "type": "string",
+          "description": "Target country",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "description": "Manufacturer, importer or other explicit role",
+          "minLength": 1
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "description": "All queries including failures and fallbacks share this budget",
+      "required": [
+        "maxQueries",
+        "usedQueries"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "maxQueries": {
+          "type": "integer",
+          "description": "Upper bound chosen for this task",
+          "minimum": 0
+        },
+        "usedQueries": {
+          "type": "integer",
+          "description": "Consumed attempts; not reset on resume",
+          "minimum": 0
+        }
+      }
+    },
+    "authorizationNotes": {
+      "type": "string",
+      "description": "Human authorization scope and evidence reference; text alone does not grant permissions"
+    }
+  }
+}
