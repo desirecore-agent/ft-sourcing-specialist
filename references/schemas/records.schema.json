@@ -1,0 +1,177 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Private evidence records. Cross-record identity, stops, authorization and idempotency require semantic review.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "records"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "description": "Format version",
+      "const": 1
+    },
+    "records": {
+      "type": "array",
+      "description": "Shared factual record set",
+      "items": {
+        "type": "object",
+        "description": "One observation or event",
+        "required": [
+          "id",
+          "campaignId",
+          "entityId",
+          "channel",
+          "kind",
+          "sourceId",
+          "sourceUrl",
+          "dedupeKey",
+          "direction",
+          "status",
+          "evidence",
+          "observedAt"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable local record identifier",
+            "minLength": 1
+          },
+          "campaignId": {
+            "type": "string",
+            "description": "Reference to campaign.id",
+            "minLength": 1
+          },
+          "entityId": {
+            "type": "string",
+            "description": "Evidence-based company reference; not normalized display name",
+            "minLength": 1
+          },
+          "contactId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Person reference; shared mailbox does not collapse people"
+          },
+          "channel": {
+            "type": "string",
+            "description": "Observed communication or discovery channel",
+            "enum": [
+              "offline",
+              "search",
+              "maps",
+              "email",
+              "linkedin",
+              "facebook",
+              "tiktok",
+              "x",
+              "customs",
+              "ads",
+              "website",
+              "other"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "description": "Record meaning",
+            "enum": [
+              "company",
+              "contact",
+              "research",
+              "outbound",
+              "inbound",
+              "inquiry",
+              "stop"
+            ]
+          },
+          "sourceId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Official platform ID; client temporary IDs excluded"
+          },
+          "sourceUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Observed source or permanent URL"
+          },
+          "dedupeKey": {
+            "type": "string",
+            "description": "Stable source/action identity scoped to campaign and channel",
+            "minLength": 1
+          },
+          "direction": {
+            "type": "string",
+            "description": "Actual author direction; own text is not customer inbound",
+            "enum": [
+              "none",
+              "outbound",
+              "inbound"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "Observed outcome, independent of claim of success",
+            "enum": [
+              "draft",
+              "pending",
+              "submitted",
+              "verified",
+              "unknown",
+              "failed",
+              "blocked"
+            ]
+          },
+          "addressState": {
+            "type": "string",
+            "description": "Address certainty; missing may allow independent research",
+            "enum": [
+              "unknown",
+              "missing",
+              "conflicting",
+              "verified",
+              "rejected"
+            ]
+          },
+          "selected": {
+            "type": "boolean",
+            "description": "Human screening fact; not send permission"
+          },
+          "contactAuthorized": {
+            "type": "boolean",
+            "description": "Recorded scoped authorization; must still check actual human scope"
+          },
+          "stopScope": {
+            "type": "string",
+            "description": "Stop request scope applies across affected channels",
+            "enum": [
+              "none",
+              "person",
+              "company"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "description": "Minimal factual citations; keep private",
+            "items": {
+              "type": "string",
+              "description": "Source observation or file reference"
+            }
+          },
+          "observedAt": {
+            "type": "string",
+            "description": "When this observation was actually made",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}

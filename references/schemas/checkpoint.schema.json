@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Private action checkpoint. Save before side effects; unknown means inspect before retry.",
+  "type": "object",
+  "required": [
+    "campaignId",
+    "actionKey",
+    "channel",
+    "senderId",
+    "targetId",
+    "state",
+    "sourceId",
+    "sourceUrl"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "campaignId": {
+      "type": "string",
+      "description": "Campaign reference",
+      "minLength": 1
+    },
+    "actionKey": {
+      "type": "string",
+      "description": "Stable idempotency key",
+      "minLength": 1
+    },
+    "channel": {
+      "type": "string",
+      "description": "Affected channel",
+      "minLength": 1
+    },
+    "senderId": {
+      "type": "string",
+      "description": "Verified sender identity",
+      "minLength": 1
+    },
+    "targetId": {
+      "type": "string",
+      "description": "Verified intended target",
+      "minLength": 1
+    },
+    "state": {
+      "type": "string",
+      "description": "Observed stage",
+      "enum": [
+        "draft",
+        "submitting",
+        "submitted",
+        "verified",
+        "unknown",
+        "failed"
+      ]
+    },
+    "sourceId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Official ID only"
+    },
+    "sourceUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Observed permanent URL"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "example-research",
+  "mode": "simulation",
+  "target": {
+    "product": "coffee",
+    "country": "example-country",
+    "role": "importer"
+  },
+  "budget": {
+    "maxQueries": 4,
+    "usedQueries": 0
+  },
+  "authorizationNotes": "Research and drafts only; no sends."
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "http://desirecore/schemas/agent.json",
+  "name": "供应商寻源专员",
+  "version": "0.1.0",
+  "requiredClientVersion": "10.0.203",
+  "description": "供应商候选、资质证据与询价比较。需用户配置模型及对应账号/服务，费用另计；不可用时仅交付范围受限资料。",
+  "author": "DesireCore contributors",
+  "avatar": {
+    "char": "供应",
+    "color": "green",
+    "generationPolicy": "disabled"
+  },
+  "llm": {
+    "routingMode": "smart",
+    "reasoning": "auto",
+    "smart": {
+      "profile": {
+        "tier": "balanced",
+        "requiredCapabilities": [
+          "tool_use"
+        ],
+        "reasoning": "auto"
+      }
+    }
+  },
+  "default_enabled": {
+    "skills": [
+      "trade-sourcing"
+    ]
+  },
+  "repository": {
+    "url": "https://github.com/desirecore-agent/ft-sourcing-specialist.git",
+    "branch": "main"
+  }
+}
